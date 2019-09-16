@@ -1,0 +1,60 @@
+management.health.redis.enabled: false
+
+server.port: 8081
+
+spring:
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: guest
+
+feign:
+  proxySecurity:
+    name: ProxySecurity
+    url: https://hmg-proxy-security.netshoes.com.br
+
+netshoes:
+  oauth2:
+    clientId: freedom
+    clientSecret: secret
+    grantType: client_credentials
+    scope: read write
+  inkaCorp:
+    oauth2:
+      name: InkaCorporate
+      url: https://hmg-ws-gateway.ns2online.com.br/rest
+      grantType: client_credentials
+      scope: read write
+      username: freedom
+      password: secret
+  paypal:
+    version: 204.0
+    paymentAtm: 0.00
+    expireTokenPercentage: 60
+    mx:
+      urlNVP: https://api-3t.sandbox.paypal.com
+      urlRest: https://api.sandbox.paypal.com
+      oauth2:
+        grantType: client_credentials
+        url: https://api.sandbox.paypal.com
+    br:
+      urlNVP: https://api-3t.sandbox.paypal.com
+      urlRest: https://api.sandbox.paypal.com
+      oauth2:
+        grantType: client_credentials
+        url: https://api.sandbox.paypal.com
+
+#jwt public key
+security:
+  basic:
+    enabled: false
+  ignored: "*/encrypt/*"
+
+restTemplate:
+  maxTotal: 600
+  maxPerRoute: 100
+  keepAliveTimeMillis: 20000
+  connectionTimeout: 5000
+  requestTimeout: 5000
+  socketTimeout: 10000
+

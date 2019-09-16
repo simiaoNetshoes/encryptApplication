@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.netshoes</groupId>
+	<artifactId>payment</artifactId>
+	<version>${credit-card-brand-discovery.version}-SNAPSHOT</version>
+
+	<name>encryptApplication</name>
+	<description>test</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.9.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<cglib.nodep.version>3.2.5</cglib.nodep.version>
+		<decidir.version>1.5.0</decidir.version>
+		<ff4j.version>1.6.3</ff4j.version>
+		<fixture.version>3.1.0</fixture.version>
+		<gatling.version>2.1.7</gatling.version>
+		<guava.version>22.0</guava.version>
+		<jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
+		<jolokia.version>1.3.7</jolokia.version>
+		<logback.gelf.version>0.3</logback.gelf.version>
+		<logstash.logback.version>4.11</logstash.logback.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<netshoes.logging>0.1.166</netshoes.logging>
+		<netshoes.store.config.starter.version>0.0.41</netshoes.store.config.starter.version>
+		<netshoes.validation>0.0.46</netshoes.validation>
+		<netshoes.feign>0.0.22</netshoes.feign>
+		<ff-starter-toggle.version>0.0.16</ff-starter-toggle.version>
+		<feign-form.version>2.1.0</feign-form.version>
+		<commons.io>2.5</commons.io>
+		<openpay-api-client.version>1.0.8</openpay-api-client.version>
+		<commons-collections4.version>4.0</commons-collections4.version>
+		<testcontainers.version>1.5.0</testcontainers.version>
+		<docker-compose.version>0.9.9</docker-compose.version>
+		<spring-kafka.version>1.2.0.RELEASE</spring-kafka.version>
+		<spring.cloud.openfeign.version>2.0.2.RELEASE</spring.cloud.openfeign.version>
+		<spring.cloud.kubernetes.version>0.2.0.RELEASE</spring.cloud.kubernetes.version>
+		<credit-card-brand-discovery.version>1.0.2</credit-card-brand-discovery.version>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<scala-maven-plugin.version>3.2.2</scala-maven-plugin.version>
+		<spock.reports.version>1.3.1</spock.reports.version>
+		<springfox.swagger.version>2.7.0</springfox.swagger.version>
+
+		<git-commit-plugin.version>2.2.4</git-commit-plugin.version>
+
+		<embedded-mongo.version>1.50.3</embedded-mongo.version>
+		<mockwebserver.version>3.8.1</mockwebserver.version>
+
+		<!-- Sonar config -->
+		<sonar.exclusions>
+			**/conf/**,**/domains/*,**/json/**,**/log/**,**/feign/nvp/*,**/converter/*,**/FreedomPaymentApplication.java
+		</sonar.exclusions>
+		<sonar.groovy.binaries>target/classes</sonar.groovy.binaries>
+		<sonar.jacoco.reportPath>target/jacoco.exec</sonar.jacoco.reportPath>
+		<sonar.java.binaries>target/classes</sonar.java.binaries>
+		<sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+		<sonar.sources>src/main/java</sonar.sources>
+		<sonar.tests>src/test/</sonar.tests>
+		<sonar.java.source>1.8</sonar.java.source>
+
+		<skipITs>true</skipITs>
+
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-feign</artifactId>
+			<version>1.3.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-spring</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Springfox Swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox.swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox.swagger.version}</version>
+		</dependency>
+
+		<!-- Netshoes Logging Spring Boot Starter -->
+		<dependency>
+			<groupId>com.netshoes</groupId>
+			<artifactId>netshoes-logging-spring-boot-starter</artifactId>
+			<version>${netshoes.logging}</version>
+		</dependency>
+
+		<!-- Netshoes Validation Spring Boot Starter -->
+		<dependency>
+			<groupId>com.netshoes</groupId>
+			<artifactId>netshoes-validation-spring-boot-starter</artifactId>
+			<version>${netshoes.validation}</version>
+		</dependency>
+
+		<!-- Netshoes Feign Spring Boot Starter -->
+		<dependency>
+			<groupId>com.netshoes</groupId>
+			<artifactId>netshoes-feign-spring-boot-starter</artifactId>
+			<version>${netshoes.feign}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.openfeign.form</groupId>
+			<artifactId>feign-form</artifactId>
+			<version>${feign-form.version}</version>
+		</dependency>
+
+		<!-- kafka -->
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<version>${spring-kafka.version}</version>
+		</dependency>
+
+		<!-- Netshoes Store Config Spring Boot Starter -->
+		<dependency>
+			<groupId>com.netshoes</groupId>
+			<artifactId>netshoes-store-config-spring-boot-starter</artifactId>
+			<version>${netshoes.store.config.starter.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons.io}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>${commons-collections4.version}</version>
+		</dependency>
+
+		<!-- TestContainers - Manage docker containers -->
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers</artifactId>
+			<version>${testcontainers.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>docker-compose</artifactId>
+			<version>${docker-compose.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
+			<version>1.2.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>${git-commit-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>get-the-git-infos</id>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+						<phase>validate</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>http://repo.spring.io/libs-snapshot-local</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+
+		<repository>
+			<id>spring-releases</id>
+			<name>Spring Releases</name>
+			<url>http://repo.spring.io/libs-release-local</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
+	</repositories>
+</project>
